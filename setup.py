@@ -5,16 +5,13 @@ import imp
 from itertools import product
 from setuptools import setup, find_packages
 
-try:
-    from urllib.request import urlretrieve
-except ImportError:
-    from urllib import urlretrieve
+from urllib.request import urlretrieve
 
 module_dir = 'openl3'
 modalities = ['audio', 'image']
 input_reprs = ['linear', 'mel128', 'mel256']
 content_type = ['music', 'env']
-model_version_str = 'v0_2_0'
+model_version_str = 'v0_4_0'
 weight_files = ['openl3_{}_{}_{}.h5'.format(*tup)
                 for tup in product(modalities, input_reprs, content_type)]
 base_url = 'https://github.com/marl/openl3/raw/models/'
@@ -53,8 +50,8 @@ setup(
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/marl/openl3',
-    author='Jason Cramer, Ho-Hsiang Wu, and Justin Salamon',
-    author_email='jtcramer@nyu.edu',
+    author='Aurora Cramer, Ho-Hsiang Wu, Bea Steers, and Justin Salamon',
+    author_email='jtc440@nyu.edu',
     packages=find_packages(),
     entry_points={
         'console_scripts': ['openl3=openl3.cli:main'],
@@ -66,11 +63,10 @@ setup(
         "Intended Audience :: Developers",
         "Intended Audience :: Science/Research",
         'Topic :: Multimedia :: Sound/Audio :: Analysis',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
     ],
     keywords='deep audio embeddings machine listening learning tensorflow keras',
     project_urls={
@@ -79,19 +75,20 @@ setup(
         'Documentation': 'https://readthedocs.org/projects/openl3/'
     },
     install_requires=[
-        'keras>=2.0.9,<2.3.0',
+        'tensorflow>=2.0.0',
         'numpy>=1.13.0',
         'scipy>=0.19.1',
-        'kapre==0.1.4',
-        'PySoundFile>=0.9.0.post1',
+        'kapre>=0.3.5',
+        'soundfile>=0.9.0.post1',
         'resampy>=0.2.1,<0.3.0',
         'h5py>=2.7.0,<3.0.0',
         'moviepy>=1.0.0',
-        'scikit-image>=0.14.3,<0.15.0'
+        'scikit-image>=0.14.3'
+        'librosa>=0.7.2',  # version limit from kapre
     ],
     extras_require={
         'docs': [
-                'sphinx==1.2.3',  # autodoc was broken in 1.3.1
+                'sphinx',
                 'sphinxcontrib-napoleon',
                 'sphinx_rtd_theme',
                 'numpydoc',

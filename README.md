@@ -2,13 +2,16 @@
 
 OpenL3 is an open-source Python library for computing deep audio and image embeddings.
 
-[![PyPI](https://img.shields.io/badge/python-2.7%2C%203.5%2C%203.6-blue.svg)](https://pypi.python.org/pypi/openl3)
+[![PyPI](https://img.shields.io/badge/python-3.6%2C%203.7%2C%203.8-blue.svg)](https://pypi.python.org/pypi/openl3)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://choosealicense.com/licenses/mit/)
-[![Build Status](https://travis-ci.org/marl/openl3.svg?branch=master)](https://travis-ci.org/marl/openl3)
-[![Coverage Status](https://coveralls.io/repos/github/marl/openl3/badge.svg?branch=master)](https://coveralls.io/github/marl/openl3?branch=master)
+[![Build Status](https://travis-ci.com/marl/openl3.svg?branch=main)](https://travis-ci.com/marl/openl3)
+[![Coverage Status](https://coveralls.io/repos/github/marl/openl3/badge.svg?branch=main)](https://coveralls.io/github/marl/openl3?branch=main)
 [![Documentation Status](https://readthedocs.org/projects/openl3/badge/?version=latest)](http://openl3.readthedocs.io/en/latest/?badge=latest)
+[![Downloads](https://pepy.tech/badge/openl3)](https://pepy.tech/project/openl3)
 
 Please refer to the [documentation](https://openl3.readthedocs.io/en/latest/) for detailed instructions and examples.
+
+> **UPDATE:** Openl3 now has Tensorflow 2 support!
 
 The audio and image embedding models provided here are published as part of [1], and are based on the Look, Listen and Learn approach [2]. For details about the embedding models and how they were trained, please see:
 
@@ -16,25 +19,11 @@ The audio and image embedding models provided here are published as part of [1],
 Jason Cramer, Ho-Hsiang Wu, Justin Salamon, and Juan Pablo Bello.<br/>
 IEEE Int. Conf. on Acoustics, Speech and Signal Processing (ICASSP), pages 3852–3856, Brighton, UK, May 2019.
 
+
 # Installing OpenL3
 
 Dependencies
 ------------
-#### Tensorflow
-Because Tensorflow comes in CPU-only and GPU variants, we leave it up to the user to install the version that best fits
-their usecase.
-
-On most platforms, either of the following commands should properly install Tensorflow:
-
-    pip install "tensorflow<1.14" # CPU-only version
-    pip install "tensorflow-gpu<1.14" # GPU version
-    
-    
-**Please note that Tensorflow 2.x is not yet supported. Ensure that an earlier version of Tensorflow is installed.** If you run into further issues with installation, a known working dependency combination is Tensorflow 1.13, Keras 2.0, and Kapre 0.1.4.
-
-For more detailed information, please consult the
-[Tensorflow installation documentation](https://www.tensorflow.org/install/).
-
 
 #### libsndfile
 OpenL3 depends on the `pysoundfile` module to load audio files, which depends on the non-Python library
@@ -52,6 +41,26 @@ For more detailed information, please consult the
 [`pysoundfile` installation documentation](https://pysoundfile.readthedocs.io/en/0.9.0/#installation>).
 
 
+#### Tensorflow
+Starting with `openl3>=0.4.0`, Openl3 has been upgraded to use Tensorflow 2. Because Tensorflow 2 and higher now includes GPU support, `tensorflow>=2.0.0` is included as a dependency and no longer needs to be installed separately. 
+
+If you are interested in using Tensorflow 1.x, please install using `pip install 'openl3<=0.3.1'`.
+
+##### Tensorflow 1x & OpenL3 <= v0.3.1
+Because Tensorflow 1.x comes in CPU-only and GPU variants, we leave it up to the user to install the version that best fits
+their usecase.
+
+On most platforms, either of the following commands should properly install Tensorflow:
+
+```bash
+pip install "tensorflow<1.14" # CPU-only version
+pip install "tensorflow-gpu<1.14" # GPU version
+```
+
+For more detailed information, please consult the
+[Tensorflow installation documentation](https://www.tensorflow.org/install/).
+
+
 Installing OpenL3
 -----------------
 The simplest way to install OpenL3 is by using ``pip``, which will also install the additional required dependencies
@@ -61,11 +70,11 @@ if needed. To install OpenL3 using ``pip``, simply run
 
 To install the latest version of OpenL3 from source:
 
-1. Clone or pull the lastest version:
+1. Clone or pull the latest version, only retrieving the ``main`` branch to avoid downloading the branch where we store the model weight files (these will be properly downloaded during installation).
 
-        git clone git@github.com:marl/openl3.git
+        git clone git@github.com:marl/openl3.git --branch main --single-branch
 
-2. Install using pip to handle python dependencies:
+2. Install using pip to handle python dependencies. The installation also downloads model files, **which requires a stable network connection**.
 
         cd openl3
         pip install -e .
@@ -87,3 +96,6 @@ IEEE Int. Conf. on Acoustics, Speech and Signal Processing (ICASSP), pages 3852�
 [2] [Look, Listen and Learn](http://openaccess.thecvf.com/content\_ICCV\_2017/papers/Arandjelovic\_Look\_Listen\_and\_ICCV\_2017\_paper.pdf)<br/>
 Relja Arandjelović and Andrew Zisserman<br/>
 IEEE International Conference on Computer Vision (ICCV), Venice, Italy, Oct. 2017.
+
+# Model Weights License
+The model weights are made available under a [Creative Commons Attribution 4.0 International (CC BY 4.0) License](https://creativecommons.org/licenses/by/4.0/).
